@@ -9,7 +9,6 @@ public class Inversions {
             numbers[i] = Integer.parseInt(scanner.nextLine());
         }
 
-
         int[] warmup = new int[numbers.length];
         System.out.print("Warming up JVM");
         for (int i = 0; i < 2000; i++) {
@@ -34,7 +33,7 @@ public class Inversions {
     private static long mergeSort(int[] array, int start, int end) {
         if (start >= end) return 0;
 
-        int mid = start + (end - start) / 2;
+        int mid = (start + end) / 2;
         return mergeSort(array, start, mid) +
                mergeSort(array, mid + 1, end) +
                merge(array, start, mid, end);
