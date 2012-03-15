@@ -8,10 +8,12 @@ public class Inversions {
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = Integer.parseInt(scanner.nextLine());
         }
-        
-        long inversions = mergeSort(numbers);
 
-        System.out.println(inversions);
+        long start = System.currentTimeMillis();
+        long inversions = mergeSort(numbers);
+        long end = System.currentTimeMillis();
+        System.out.println("Time: " + (end - start) + "ms");
+        System.out.println("Answer: " + inversions);
     }
 
     private static long mergeSort(int[] array) {
