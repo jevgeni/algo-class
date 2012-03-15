@@ -9,6 +9,17 @@ public class Inversions {
             numbers[i] = Integer.parseInt(scanner.nextLine());
         }
 
+
+        int[] warmup = new int[numbers.length];
+        System.out.print("Warming up JVM");
+        for (int i = 0; i < 2000; i++) {
+            if (i % 100 == 0) System.out.print('.');
+            System.arraycopy(numbers, 0, warmup, 0, warmup.length);
+            mergeSort(warmup);
+        }
+        System.out.println("\nJVM warmed up!");
+
+        System.out.println("Running inversion count");
         long start = System.currentTimeMillis();
         long inversions = mergeSort(numbers);
         long end = System.currentTimeMillis();
