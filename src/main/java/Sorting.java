@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Sorting {
+    public interface PivotStrategy {
+        void preparePivot(int[] numbers, int left, int right);
+    }
+
     public static final PivotStrategy PIVOT_IS_FIRST_ELEMENT = new PivotStrategy() {
         public void preparePivot(int[] numbers, int left, int right) {
             // do nothing, partition by default uses first element
@@ -76,6 +80,18 @@ public class Sorting {
 
 
     public static void main(String[] args) {
+        System.out.println(getNumberOfComparisons(PIVOT_IS_FIRST_ELEMENT, loadNumbers()));
+        System.out.println(getNumberOfComparisons(PIVOT_IS_LAST_ELEMENT, loadNumbers()));
+        System.out.println(getNumberOfComparisons(PIVOT_IS_MID_ELEMENT, loadNumbers()));
+    }
+
+    private static int getNumberOfComparisons(PivotStrategy pivotStrategy, int[] numbers) {
+        Sorting sorting = new Sorting(pivotStrategy);
+        sorting.quickSort(numbers);
+        return sorting.getNumberOfComparisons();
+    }
+
+    private static int[] loadNumbers() {
         int[] numbers = new int[10000];
 
         Scanner scanner = new Scanner(Inversions.class.getResourceAsStream("QuickSort.txt"));
@@ -84,13 +100,6 @@ public class Sorting {
         }
 
         if (scanner.hasNext()) throw new IllegalStateException("check the array size");
-
-        Sorting sorting = new Sorting(PIVOT_IS_FIRST_ELEMENT);
-        sorting.quickSort(numbers);
-        System.out.println(sorting.getNumberOfComparisons());
-    }
-
-    public interface PivotStrategy {
-        void preparePivot(int[] numbers, int left, int right);
+        return numbers;
     }
 }
