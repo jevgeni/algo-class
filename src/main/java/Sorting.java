@@ -1,26 +1,46 @@
 import java.util.Scanner;
 
 public class Sorting {
-    private int numberOfComparisons;
+    public static final PivotStrategy PIVOT_IS_FIRST_ELEMENT = new PivotStrategy() {
+        public void preparePivot(int[] numbers, int left, int right) {
+            // do nothing, partition by default uses first element
+        }
+    };
 
-    public void quicksort(int[] numbers) {
-        numberOfComparisons = 0;
-        quicksort(numbers, 0, numbers.length - 1);
+    public static final PivotStrategy PIVOT_IS_LAST_ELEMENT = new PivotStrategy() {
+        public void preparePivot(int[] numbers, int left, int right) {
+            swap(numbers, left, right);
+        }
+    };
+
+    public static final PivotStrategy PIVOT_IS_MID_ELEMENT = new PivotStrategy() {
+        public void preparePivot(int[] numbers, int left, int right) {
+            swap(numbers, left, right);
+        }
+    };
+
+
+    private int numberOfComparisons;
+    private PivotStrategy strategy;
+
+    public Sorting(PivotStrategy strategy) {
+        this.strategy = strategy;
     }
 
-    private void quicksort(int[] numbers, int left, int right) {
+    public void quickSort(int[] numbers) {
+        numberOfComparisons = 0;
+        quickSort(numbers, 0, numbers.length - 1);
+    }
+
+    private void quickSort(int[] numbers, int left, int right) {
         if (right - left < 1) return;
-
-        preparePivot(numbers, left, right);
-        int split = partition(numbers, left, right);
-
         numberOfComparisons += right - left;
 
-        quicksort(numbers, left, split - 1);
-        quicksort(numbers, split + 1, right);
-    }
+        strategy.preparePivot(numbers, left, right);
+        int split = partition(numbers, left, right);
+        quickSort(numbers, left, split - 1);
+        quickSort(numbers, split + 1, right);
 
-    protected void preparePivot(int[] numbers, int left, int right) {
     }
 
     private int partition(int[] numbers, int left, int right) {
@@ -36,7 +56,7 @@ public class Sorting {
         return i - 1;
     }
 
-    protected void swap(int[] numbers, int i, int j) {
+    protected static void swap(int[] numbers, int i, int j) {
         int temp = numbers[j];
         numbers[j] = numbers[i];
         numbers[i] = temp;
@@ -57,8 +77,12 @@ public class Sorting {
 
         if (scanner.hasNext()) throw new IllegalStateException("check the array size");
 
-        Sorting sorting = new Sorting();
-        sorting.quicksort(numbers);
+        Sorting sorting = new Sorting(PIVOT_IS_FIRST_ELEMENT);
+        sorting.quickSort(numbers);
         System.out.println(sorting.getNumberOfComparisons());
+    }
+
+    public interface PivotStrategy {
+        void preparePivot(int[] numbers, int left, int right);
     }
 }
