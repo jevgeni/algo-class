@@ -11,11 +11,27 @@ public class SortingTest {
     private final Sorting sorting = new Sorting();
 
     @Test
-    public void countComparisonsFor_2_element_array() throws Exception {
+    public void countComparisonsFor_2_elements_array() throws Exception {
         int[] array = {2, 1};
         sorting.quicksort(array);
-        assertEquals(1, sorting.getNumberOfComparisons());
         assertEquals(Arrays.asList(1, 2), asList(array));
+        assertEquals(1, sorting.getNumberOfComparisons());
+    }
+
+    @Test
+    public void countComparisonsFor_3_elements_array() throws Exception {
+        int[] array = {3, 2, 1};
+        sorting.quicksort(array);
+        assertEquals(3, sorting.getNumberOfComparisons());
+        assertEquals(Arrays.asList(1, 2, 3), asList(array));
+    }
+
+    @Test
+    public void countComparisonsFor_4_elements_array() throws Exception {
+        int[] array = {4, 3, 2, 1};
+        sorting.quicksort(array);
+        assertEquals(6, sorting.getNumberOfComparisons());
+        assertEquals(Arrays.asList(1, 2, 3, 4), asList(array));
     }
 
     @Test
