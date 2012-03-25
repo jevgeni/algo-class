@@ -13,11 +13,19 @@ public class Sorting {
         }
     };
 
-    public static final PivotStrategy PIVOT_IS_MID_ELEMENT = new PivotStrategy() {
+    public static class MidElementPivotStrategy implements PivotStrategy {
         public void preparePivot(int[] numbers, int left, int right) {
-            swap(numbers, left, right);
+            int mid = getMidPoint(left, right);
+            swap(numbers, left, mid);
         }
-    };
+
+        int getMidPoint(int left, int right) {
+            return (left + right) / 2;
+        }
+    }
+
+    public static final PivotStrategy PIVOT_IS_MID_ELEMENT = new MidElementPivotStrategy();
+
 
 
     private int numberOfComparisons;

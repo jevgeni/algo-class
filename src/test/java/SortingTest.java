@@ -46,6 +46,25 @@ public class SortingTest {
     }
 
     @Test
+    public void detectMidPointForMidPointPivotStrategy() throws Exception {
+        Sorting.MidElementPivotStrategy strategy = new Sorting.MidElementPivotStrategy();
+        assertEquals(3, strategy.getMidPoint(3, 4)); // 3 (mid), 4
+        assertEquals(5, strategy.getMidPoint(3, 7)); // 3, 4, 5 (mid), 6, 7
+        assertEquals(11, strategy.getMidPoint(10, 13)); // 10, 11 (mid), 12, 13
+    }
+
+    @Test
+    public void countComparisonsWhenPivotIsMidElement() throws Exception {
+        sorting = new Sorting(Sorting.PIVOT_IS_MID_ELEMENT);
+        int[] array = {4, 1, 3, 2};
+
+        sorting.quickSort(array);
+
+        assertEquals(5, sorting.getNumberOfComparisons());
+        assertEquals(Arrays.asList(1, 2, 3, 4), asList(array));
+    }
+
+    @Test
     public void resetNumberOfComparisonsEachQuickSort() throws Exception {
         sorting.quickSort(new int[]{2, 1});
         sorting.quickSort(new int[]{2, 1});
