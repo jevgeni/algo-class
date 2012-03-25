@@ -20,7 +20,7 @@ public class Sorting {
     }
 
     private long quicksort(int[] numbers, int left, int right) {
-        if (right - left <= 1) return 0;
+        if (right - left < 1) return 0;
 
         preparePivot(numbers, left, right);
         int split = partition(numbers, left, right);
