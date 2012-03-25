@@ -19,8 +19,28 @@ public class Sorting {
 
     public static class MidElementPivotStrategy implements PivotStrategy {
         public void preparePivot(int[] numbers, int left, int right) {
-            int mid = getMidPoint(left, right);
-            swap(numbers, left, mid);
+            int pivot = findMedianIndexOfThree(numbers, left, getMidPoint(left, right), right);
+            swap(numbers, left, pivot);
+        }
+
+        int findMedianIndexOfThree(int[] numbers, int left, int mid, int right) {
+            int leftVal = numbers[left];
+            int midVal = numbers[mid];
+            int rightVal = numbers[right];
+            
+            if (isValueInBetween(leftVal, midVal, rightVal) ||
+                isValueInBetween(leftVal, rightVal, midVal)) {
+                return left;
+            } else if (isValueInBetween(midVal, leftVal, rightVal) ||
+                       isValueInBetween(midVal, rightVal, leftVal)) {
+                return mid;
+            } else {
+                return right;
+            }
+        }
+
+        private boolean isValueInBetween(int value, int lower, int larger) {
+            return lower <= value && value <= larger;
         }
 
         int getMidPoint(int left, int right) {
