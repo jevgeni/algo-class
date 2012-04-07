@@ -31,4 +31,17 @@ public class MinCut {
 
 
     }
+
+    public int getMinCut() {
+        while(graph.getTotalNodes() > 2) {
+            Node start = graph.getRandomNode();
+            Node end;
+            do {
+                end = graph.getRandomNode();
+            } while (end.equals(start));
+
+            contractEdge(start, end);
+        }
+        return graph.getTotalEdges();
+    }
 }
