@@ -33,4 +33,18 @@ public class Graph {
     public void removeEdge(Node start, Node end) {
         getAdjacentNodes(start).remove(end);
     }
+
+    public void removeNode(Node node) {
+        List<Node> adjacentNodes = nodes.get(node);
+        if (adjacentNodes != null) {
+            for (Node adjacentNode : adjacentNodes) {
+                removeEdge(adjacentNode, node);
+            }
+        }
+        nodes.remove(node);
+    }
+
+    public int getTotalNodes() {
+        return nodes.size();
+    }
 }

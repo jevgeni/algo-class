@@ -37,4 +37,11 @@ public class GraphTest {
         graph.removeEdge(new Node("1"), new Node("3"));
         assertEquals(1, graph.getAdjacentNodes(new Node("1")).size());
     }
+
+    @Test
+    public void removeNode() throws Exception {
+        graph.removeNode(new Node("1"));
+        assertEquals(1, graph.getTotalEdges());
+        assertEquals(2, graph.getTotalNodes());
+    }
 }
