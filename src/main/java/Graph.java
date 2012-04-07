@@ -1,9 +1,10 @@
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Graph {
-
-
-    private Map<Node, List<Node>> nodes = new HashMap<Node, List<Node>>();
+public class Graph implements Cloneable {
+    private HashMap<Node, List<Node>> nodes = new HashMap<Node, List<Node>>();
 
     public void addEdge(Node start, Node end) {
         getAdjacentNodes(start).add(end);
@@ -46,5 +47,12 @@ public class Graph {
 
     public int getTotalNodes() {
         return nodes.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "nodes=" + nodes +
+                '}';
     }
 }

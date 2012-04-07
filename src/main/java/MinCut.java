@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 public class MinCut {
     private Graph graph;
 
@@ -8,19 +10,25 @@ public class MinCut {
     public static void main(String[] args) {
     }
 
-    public void contractEdge(Edge edge) {
-        Node newNode = new Node(edge.getStart().getId() + "-" + edge.getEnd().getId());
-//        graph.remove(edge);
-//        graph.remove(edge.getStart());
-//        graph.remove(edge.getEnd());
-//        graph.removeAll(edge.getStart().getEdges());
-//        graph.removeAll(edge.getEnd().getEdges());
+    public void contractEdge(Node start, Node end) {
+        Node contractedNode = new Node(start.getId() + "-" + end.getId());
+        Collection<Node> startAdjacentNodes = graph.getAdjacentNodes(start);
+        for (Node node : startAdjacentNodes) {
+            if (node.equals(end)) continue;
+            graph.addEdge(contractedNode, node);
+            graph.addEdge(node, contractedNode);
+        }
 
-        for (Node adjacentNode : edge.getStart().getAdjacentNodes()) {
-            graph.addEdge(newNode, adjacentNode);
+        Collection<Node> endAdjacentNodes = graph.getAdjacentNodes(end);
+        for (Node node : endAdjacentNodes) {
+            if (node.equals(start)) continue;
+            graph.addEdge(contractedNode, node);
+            graph.addEdge(node, contractedNode);
         }
-        for (Node adjacentNode : edge.getEnd().getAdjacentNodes()) {
-            graph.addEdge(newNode, adjacentNode);
-        }
+
+        graph.removeNode(start);
+        graph.removeNode(end);
+
+
     }
 }
