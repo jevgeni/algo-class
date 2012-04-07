@@ -1,7 +1,4 @@
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Graph implements Cloneable {
     private HashMap<Node, List<Node>> nodes = new HashMap<Node, List<Node>>();
@@ -10,7 +7,7 @@ public class Graph implements Cloneable {
         getAdjacentNodes(start).add(end);
     }
 
-    public Collection<Node> getAdjacentNodes(Node start) {
+    public List<Node> getAdjacentNodes(Node start) {
         List<Node> edges = nodes.get(start);
         if (edges == null) {
             edges = new LinkedList<Node>();
@@ -51,17 +48,33 @@ public class Graph implements Cloneable {
 
     @Override
     public String toString() {
-        return "Graph{" +
-                "nodes=" + nodes +
-                '}';
+        return nodes.toString();
     }
 
     public Node getRandomNode() {
-        int index = (int)(Math.random() * nodes.size());
+        int index = random(nodes.size());
         int current = 0;
         for (Node node : nodes.keySet()) {
             if (current++ == index) return node;
         }
         return null;
+    }
+
+    private int random(int max) {
+        return (int)(Math.random() * max);
+    }
+
+    public Node getRandomAdjacentNode(Node node) {
+        List<Node> adjacentNodes = getAdjacentNodes(node);
+        return adjacentNodes.get(random(adjacentNodes.size()));
+    }
+
+    @Override
+    protected Object clone() {
+        Graph graph = new Graph();
+        for (Map.Entry<Node, List<Node>> entry : nodes.entrySet()) {
+            graph.nodes.put(entry.getKey(), new LinkedList<Node>(entry.getValue()));
+        }
+        return graph;
     }
 }
