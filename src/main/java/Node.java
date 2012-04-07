@@ -17,6 +17,10 @@ public class Node {
         edges.add(edge);
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,5 +41,17 @@ public class Node {
         return "Node{" +
                 "id='" + id + '\'' +
                 '}';
+    }
+
+    public Set<Node> getAdjacentNodes() {
+        Set<Node> nodes = new HashSet<Node>();
+        for (Edge edge : edges) {
+            if (edge.getStart().equals(this)) {
+                nodes.add(edge.getEnd());
+            } else {
+                nodes.add(edge.getStart());
+            }
+        }
+        return nodes;
     }
 }

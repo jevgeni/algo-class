@@ -1,6 +1,6 @@
 public class Edge {
-    private final Node start;
-    private final Node end;
+    private Node start;
+    private Node end;
     private boolean directed;
 
     public Edge(Node start, Node end, boolean directed) {
@@ -9,6 +9,22 @@ public class Edge {
         this.directed = directed;
         start.addEdge(this);
         end.addEdge(this);
+    }
+
+    public Node getStart() {
+        return start;
+    }
+
+    public Node getEnd() {
+        return end;
+    }
+
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    public void setEnd(Node end) {
+        this.end = end;
     }
 
     @Override
@@ -39,5 +55,9 @@ public class Edge {
                 ", end=" + end +
                 ", directed=" + directed +
                 '}';
+    }
+
+    public boolean isSelfLooped() {
+        return start.equals(end);
     }
 }

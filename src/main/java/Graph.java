@@ -1,30 +1,25 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
 
 
-    private final boolean directed;
-    private Set<Node> nodes = new HashSet<Node>();
-    private Set<Edge> edges = new HashSet<Edge>();
-
-    public Graph(boolean directed) {
-        this.directed = directed;
-    }
+    private Map<Node, Set<Node>> nodes = new HashMap<Node, Set<Node>>();
 
     public void addEdge(Node start, Node end) {
-        nodes.add(start);
-        nodes.add(end);
-        edges.add(new Edge(start, end, directed));
+        getAdjacentNodes(start).add(end);
+        getAdjacentNodes(end).add(start);
     }
 
-    public Set<Node> getNodes() {
-        return nodes;
-    }
-
-    public Set<Edge> getEdges() {
+    public Collection<Node> getAdjacentNodes(Node start) {
+        Set<Node> edges = nodes.get(start);
+        if (edges == null) {
+            edges = new HashSet<Node>();
+            nodes.put(start, edges);
+        }
         return edges;
     }
 
-
+    public Collection<Node> getNodes() {
+        return nodes.keySet();
+    }
 }
