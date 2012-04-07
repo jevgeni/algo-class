@@ -5,6 +5,10 @@ public class Node {
         this.id = id;
     }
 
+    public Node(int id) {
+        this.id = Integer.toString(id);
+    }
+
     public String getId() {
         return id;
     }

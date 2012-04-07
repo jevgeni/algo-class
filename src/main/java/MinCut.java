@@ -1,10 +1,27 @@
 import java.util.Collection;
+import java.util.Scanner;
 
 public class MinCut {
     private Graph graph;
 
     public MinCut(Graph graph) {
         this.graph = (Graph) graph.clone();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(MinCut.class.getResourceAsStream("kargerAdj.txt"));
+        Graph graph = new Graph();
+        while(scanner.hasNext()) {
+            Scanner lineScanner = new Scanner(scanner.nextLine());
+            Node start = new Node(lineScanner.nextInt());
+            while (lineScanner.hasNext()) {
+                Node end = new Node(lineScanner.nextInt());
+                graph.addEdge(start, end);
+            }
+        }
+
+        System.out.println(getRandomizedMinCut(graph));
+
     }
 
     public static int getRandomizedMinCut(Graph graph) {
