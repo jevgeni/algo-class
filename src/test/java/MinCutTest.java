@@ -17,7 +17,6 @@ public class MinCutTest {
         graph.addEdge(new Node("3"), new Node("2"));
 
         MinCut minCut = new MinCut(graph);
-//        System.out.println(graph.getEdges());
 
         Edge edge_1_to_2 = findEdge(graph, new Node("1"), new Node("2"));
         minCut.contractEdge(edge_1_to_2);

@@ -3,17 +3,16 @@ import java.util.*;
 public class Graph {
 
 
-    private Map<Node, Set<Node>> nodes = new HashMap<Node, Set<Node>>();
+    private Map<Node, List<Node>> nodes = new HashMap<Node, List<Node>>();
 
     public void addEdge(Node start, Node end) {
         getAdjacentNodes(start).add(end);
-        getAdjacentNodes(end).add(start);
     }
 
     public Collection<Node> getAdjacentNodes(Node start) {
-        Set<Node> edges = nodes.get(start);
+        List<Node> edges = nodes.get(start);
         if (edges == null) {
-            edges = new HashSet<Node>();
+            edges = new LinkedList<Node>();
             nodes.put(start, edges);
         }
         return edges;
@@ -21,5 +20,17 @@ public class Graph {
 
     public Collection<Node> getNodes() {
         return nodes.keySet();
+    }
+
+    public int getTotalEdges() {
+        int total = 0;
+        for (List<Node> adjacentNodes : nodes.values()) {
+            total += adjacentNodes.size();
+        }
+        return total / 2;
+    }
+
+    public void removeEdge(Node start, Node end) {
+        getAdjacentNodes(start).remove(end);
     }
 }
