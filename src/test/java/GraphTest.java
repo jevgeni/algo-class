@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 public class GraphTest {
@@ -43,5 +46,14 @@ public class GraphTest {
         graph.removeNode(new Node("1"));
         assertEquals(1, graph.getTotalEdges());
         assertEquals(2, graph.getTotalNodes());
+    }
+
+    @Test
+    public void getRandomNode() throws Exception {
+        Set<Node> nodes = new HashSet<Node>();
+        for (int i = 0; i < 100; i++) {
+             nodes.add(graph.getRandomNode());
+        }
+        assertEquals(nodes.toString(), 3, nodes.size());
     }
 }

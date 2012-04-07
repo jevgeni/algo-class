@@ -55,4 +55,13 @@ public class Graph implements Cloneable {
                 "nodes=" + nodes +
                 '}';
     }
+
+    public Node getRandomNode() {
+        int index = (int)(Math.random() * nodes.size());
+        int current = 0;
+        for (Node node : nodes.keySet()) {
+            if (current++ == index) return node;
+        }
+        return null;
+    }
 }
