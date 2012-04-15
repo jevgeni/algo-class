@@ -25,7 +25,7 @@ public class GraphTest {
     public void addNodes() throws Exception {
         assertEquals(3, graph.getNodes().size());
         for (Node node : graph.getNodes()) {
-            assertEquals(2, graph.getAdjacentNodes(node).size());
+            assertEquals(2, graph.getAdjacentNodesOrAddEmpty(node).size());
         }
     }
 
@@ -36,9 +36,9 @@ public class GraphTest {
 
     @Test
     public void removeEdge() throws Exception {
-        assertEquals(2, graph.getAdjacentNodes(new Node("1")).size());
+        assertEquals(2, graph.getAdjacentNodesOrAddEmpty(new Node("1")).size());
         graph.removeEdge(new Node("1"), new Node("3"));
-        assertEquals(1, graph.getAdjacentNodes(new Node("1")).size());
+        assertEquals(1, graph.getAdjacentNodesOrAddEmpty(new Node("1")).size());
     }
 
     @Test
